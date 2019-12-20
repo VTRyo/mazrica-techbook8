@@ -1,0 +1,62 @@
+version: 2
+
+build: &build-image
+  docker:
+    - image: vvakame/review:3.1
+
+slackcat: &slackcat-image
+  docker:
+    - image: vtryo/slackcat:node-6.10.0
+
+aliases:
+  - &attach_workspace
+    at: ./
+  - &persist_to_workspace
+    root: ./
+    paths:
+      - ./.review/book.pdf
+
+references:
+  commands:
+    build_pdf: &build_pdf
+      description: "PDFを生成する"
+      name: Build PDF
+      command: yarn && yarn build
+
+    slackcat_cofigure: &slackcat_cofigure
+      description: "slack tokenを書き込む"
+      name: slackcat configure
+      command: echo $SLACK_TOKEN > ~/.slackcat
+
+    file_deploy: &file_deploy
+      description: "チャンネルに転送する。チャンネルの指定はcircleciの環境設定で変更する"
+      name: file deploy
+      command: slackcat --channel $TO_CHANNEL ./.review/book.pdf
+
+jobs:
+  build: &build
+    <<: *build-image
+    steps:
+      - checkout
+      - run: *build_pdf
+      - store_artifacts:
+          path: ./.review/book.pdf
+          destination: book.pdf
+      - persist_to_workspace: *persist_to_workspace
+
+  deploy: &deploy
+    <<: *slackcat-image
+    steps:
+      - checkout
+      - attach_workspace: *attach_workspace
+      - run: *slackcat_cofigure
+      - run: *file_deploy
+
+workflows:
+  version: 2
+  articles-build:
+    jobs:
+      - build
+      - deploy:
+          requires:
+            - build

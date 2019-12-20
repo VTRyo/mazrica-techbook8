@@ -1,0 +1,32 @@
+{
+  "bookname": "book",
+  "booktitle": "マツリカごった煮本（仮）",
+  "aut": ["Mazrica Techbook Project"],
+  "language": "ja",
+  "toc": true,
+  "rights": "(C) 2018-2019　Mazrica Techbook Project",
+  "colophon": true,
+  "history": [["2019-x-xx xxxxxx"]],
+  "prt": "日光企画",
+  "pbl": "Mazrica Techbook Project",
+  "edt": "VTRyo",
+  "secnolevel": 3,
+  "titlepage": true,
+  "review_version": 3.1,
+  "texstyle": ["reviewmacro"],
+  "texdocumentclass": [
+    "review-jsbook",
+    "media=print,paper=a5,serial_pagination=true,hiddenfolio=nikko-pc,openany,fontsize=9pt,baselineskip=13pt,line_length=38zw,number_of_lines=37,head_space=15mm,headsep=3mm,headheight=5mm,footskip=10mm"
+  ],
+  "sty_templates": {
+    "url": "https://github.com/TechBooster/ReVIEW-Template/archive/2cde584d33e8a6f5e6cf647e62fb6b3123ce4dfa.zip",
+    "dir": "ReVIEW-Template-2cde584d33e8a6f5e6cf647e62fb6b3123ce4dfa/articles/sty/"
+  },
+  "templates": ["images"],
+  "catalog": {
+    "PREDEF": ["chap-preface.md"],
+    "CHAPS": ["chap-ryo.md"],
+    "APPENDIX": ["chap-appendix.md"],
+    "POSTDEF": ["chap-postscript.md", "chap-specialthanks.md", "chap-contributors.md"]
+	}
+}
