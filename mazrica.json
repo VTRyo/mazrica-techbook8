@@ -25,7 +25,9 @@
   "templates": ["images"],
   "catalog": {
     "PREDEF": ["chap-preface.md"],
-    "CHAPS": ["chap-ryo.md"],
+    "CHAPS": [
+      "chap-ryo.md"
+    ],
     "APPENDIX": ["chap-appendix.md"],
     "POSTDEF": ["chap-postscript.md", "chap-specialthanks.md", "chap-contributors.md"]
 	}
