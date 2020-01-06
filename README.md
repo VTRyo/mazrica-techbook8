@@ -28,7 +28,7 @@
 
 ```
 $ cd mazrica-techbook8
-$ docker run -t --rm -v $(pwd):/book vvakame/review3.1 /bin/bash -ci "cd /book && yarn && yarn build"
+$ docker run -t --rm -v $(pwd):/book vvakame/review:3.1 /bin/bash -ci "cd /book && yarn && yarn build"
 ```
 
 * PDFの場所
