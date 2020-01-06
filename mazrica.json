@@ -27,7 +27,8 @@
     "PREDEF": ["chap-preface.md"],
     "CHAPS": [
       "chap-ryo.md",
-      "chap-forte.md"
+      "chap-forte.md",
+      "chap-norihey.md"
     ],
     "APPENDIX": ["chap-appendix.md"],
     "POSTDEF": ["chap-postscript.md", "chap-specialthanks.md", "chap-contributors.md"]
