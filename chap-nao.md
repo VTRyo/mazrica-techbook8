@@ -18,7 +18,7 @@
 ## 開発に必要なもの
  Xcodeはもちろんインストールされているとおもいますので、その他で、必要はツールをインストールしていきます。
 #### 手順１ Cocoapodsをインストールする
-```c?line_numbers=false
+```
 $ [sudo] gem install cocoapods
 ```
  今回のサンプルで、RSSをパースする目的でFeedKit(https://github.com/nmdias/FeedKit)を利用している為、Cocoapodsを追加しています。
@@ -88,7 +88,7 @@ Installing swifty_viper...
  これで準備は完了です。
 
 ## リファクタリング
-
+ Mainという名前で、VIPERのコードを生成します。
 ```
 $ generamba gen Main swifty_viper
 
@@ -103,5 +103,6 @@ Project group path: swift-rss-sample/Classes/Modules/Main
 Test file path: swift-rss-sampleTests/Classes/Modules/Main
 Test group path: swift-rss-sampleTests/Classes/Modules/Main
 ```
+
 
 ## まとめ
