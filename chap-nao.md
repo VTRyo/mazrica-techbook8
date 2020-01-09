@@ -32,8 +32,18 @@ $ [sudo] gem install generamba
 #### 手順３ generamba の setup
 ```
 $ git clone https://github.com/honda-n/swift-rss-sample.git
- swift-viper-rss
+ swift-viper-rss 👈改行せずに入力してください
+
+# Cocoapodsをインストール
 $ cd swift-viper-rss
+$ pod install
+
+# 任意: git管理する場合は、一旦 .git/を消して再度設定
+$ rm -rf .git/
+$ git init
+$ git remote add origin [git URL]
+
+# テンプレートを準備
 $ generamba setup
 The company name which will be used in the headers: sample
 The name of your project is swift-viper-rss. Do you want to use it?
@@ -71,15 +81,7 @@ Rambafile successfully created! Now run `generamba template install`.
 ```
  直下に Rambafile が生成されているはずです。
 
-#### 手順４ Rambafile の Templates を編集
-```
-$ vi Rambafile
-### Templates
-templates:
-- {name: swifty_viper}
-```
-
-#### 手順5 テンプレートをインストール
+#### 手順4 テンプレートをインストール
 ```
 $ generamba template install
 Updating shared generamba-catalog specs...
@@ -88,6 +90,8 @@ Installing swifty_viper...
  これで準備は完了です。
 
 ## リファクタリング
+
+#### コードを生成
  Mainという名前で、VIPERのコードを生成します。
 ```
 $ generamba gen Main swifty_viper
@@ -103,6 +107,35 @@ Project group path: swift-rss-sample/Classes/Modules/Main
 Test file path: swift-rss-sampleTests/Classes/Modules/Main
 Test group path: swift-rss-sampleTests/Classes/Modules/Main
 ```
+
+このようにコードが生成されます。
+画像
+
+#### UITableViewControllerを継承するように書き換える
+
+```
+# MainViewController
+class MainViewController: UIViewController, MainViewInput {
+...
+```
+
+#### StoryBoardからモジュールを初期化できるようにする
+
+Main.storyboardを開き、RSS Scenceのcustom classを MainViewControllerへ変更します。
+
+画像
+
+RSS Scence へ NSObjectを追加して、custom classへMainModuleInitializerを追加します。
+
+画像
+
+最期に@IBOutletをMainViewControllerへ繋げばコントローラーの置き換えは完了です。
+
+画像
+
+#### ViewContoler クラスから処理を分割する
+
+
 
 
 ## まとめ
