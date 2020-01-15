@@ -114,8 +114,8 @@ Test group path: swift-rss-sampleTests/Classes/Modules/Main
 #### UITableViewControllerを継承するように書き換える
 
 ```
-# MainViewController
-class MainViewController: UIViewController, MainViewInput {
+//  MainMainViewController.swift
+class MainViewController: UITableViewController {
 ...
 ```
 
@@ -127,15 +127,355 @@ Main.storyboardを開き、RSS Scenceのcustom classを MainViewControllerへ変
 
 RSS Scence へ NSObjectを追加して、custom classへMainModuleInitializerを追加します。
 
-![ainModuleInitializerを追加](images/スクリーンショット_nao_03)
+![MainModuleInitializerを追加](images/スクリーンショット_nao_03)
 
 最期に@IBOutletをMainViewControllerへ繋げばコントローラーの置き換えは完了です。
 
 ![ツリー](images/スクリーンショット_nao_04)
 
 #### ViewContoler クラスから処理を分割する
+ここからはコードを移植していきます。
 
+#### Extensionクラスは、別ファイルへ
+```
+//  UIImage+Extenstion.swift
+import UIKit
 
+extension UIImage {
+    func resize(size _size: CGSize) -> UIImage? {
+        let widthRatio = _size.width / size.width
+        let heightRatio = _size.height / size.height
+        let ratio = widthRatio < heightRatio ? widthRatio : heightRatio
 
+        let resizedSize = CGSize(width: size.width * ratio, height: size.height * ratio)
+
+        UIGraphicsBeginImageContextWithOptions(resizedSize, false, 0.0) // 変更
+        draw(in: CGRect(origin: .zero, size: resizedSize))
+        let resizedImage = UIGraphicsGetImageFromCurrentImageContext()
+        UIGraphicsEndImageContext()
+
+        return resizedImage
+    }
+
+    static func imageWithUrl(_ URL: URL) -> UIImage? {
+        do {
+            let data = try Data(contentsOf: URL)
+            return UIImage(data: data)
+        }catch let error {
+            print("Error : \(error.localizedDescription)")
+            return nil
+        }
+    }
+}
+```
+
+#### RemoteDataManagerを定義する
+VIPERの場合、テストを作成する際にモックできるようにProtocolを定義し、クラスで継承して作成しています。
+
+```
+//  RemoteDateManager.swift
+import Foundation
+import FeedKit
+
+protocol RemoteDataManagerProtocol {
+    func get(completion: ((Feed) -> Void)?, fail: ((String) -> Void)?)
+}
+
+class RemoteDataManager: RemoteDataManagerProtocol {
+    func get(completion: ((Feed) -> Void)?, fail: ((String) -> Void)?) {
+        guard let url = URL(string: "https://feeds.soundcloud.com/users/soundcloud:users:466377696/sounds.rss") else {
+            return
+        }
+        let parser = FeedParser(URL: url)
+        parser.parseAsync { (result) in
+            switch result {
+            case .success(let feed):
+                completion?(feed)
+            case .failure(let error):
+                fail?(error.localizedDescription)
+            }
+        }
+    }
+}
+```
+
+#### InteractorInput protocolを定義
+
+```
+//  MainMainInteractorInput.swift
+import Foundation
+
+protocol MainInteractorInput {
+    func fetchRSS()
+}
+
+```
+
+#### InteractorOutput protocolを定義
+```
+//  MainMainInteractorOutput.swift
+import Foundation
+import FeedKit
+
+protocol MainInteractorOutput: class {
+    func RSSGeted(_ feed: Feed)
+    func faild(_ error: String)
+}
+```
+
+#### Interactorへ初期化処理を追加
+Interactorのinitrizerを追加して、DataManagerを受け取り初期化できるようにする
+
+```
+//  MainMainInteractor.swift
+class MainInteractor: MainInteractorInput {
+    weak var output: MainInteractorOutput!
+    var remoteDataManager: RemoteDataManagerProtocol!
+    init(remoteDataManager: RemoteDataManagerProtocol) {
+        self.remoteDataManager = remoteDataManager
+    }
+
+    func fetchRSS() {
+        remoteDataManager.get(completion: { (feed) in
+            self.output.RSSGeted(feed)
+        }) { (error) in
+            self.output.faild(error)
+        }
+    }
+```
+
+#### 機能を集約する Presenterを定義する
+
+```
+//  MainMainPresenter.swift
+import FeedKit
+
+class MainPresenter: MainModuleInput, MainViewOutput {
+    weak var view: MainViewInput!
+    var interactor: MainInteractorInput!
+    var router: MainRouterInput!
+    var editingFeed: Feed?
+
+    func viewIsReady() {
+        interactor.fetchRSS()
+    }
+
+    func updateView() {
+        guard let feed = editingFeed else {
+            return
+        }
+        var image: UIImage? = nil
+        if let urlString = feed.rssFeed?.image?.url {
+            guard let URL = URL(string: urlString) else {
+                return
+            }
+            image = UIImage.imageWithUrl(URL)
+        }
+        view.showRSS(items: feed.rssFeed?.items, image: image)
+    }
+
+    func showLink(URL: URL) {
+        router.presentWebView(URL: URL)
+    }
+}
+
+extension MainPresenter: MainInteractorOutput {
+    func RSSGeted(_ feed: Feed) {
+        editingFeed = feed
+        updateView()
+    }
+
+    func faild(_ error: String) {
+        print(error)
+    }
+}
+
+```
+#### RouterInput protocolを定義
+
+```
+//  MainMainRouterInput.swift
+import Foundation
+
+protocol MainRouterInput {
+    func presentWebView(URL: URL)
+}
+```
+
+#### MainRouterへ遷移処理を移植
+```
+//  MainMainRouter.swift
+import SafariServices
+
+class MainRouter: MainRouterInput {
+    private weak var viewController: UIViewController?
+    private weak var presenter: MainPresenter?
+
+    init(_ viewController: UIViewController?, presenter: MainPresenter) {
+        self.viewController = viewController
+        self.presenter = presenter
+    }
+
+    func presentWebView(URL: URL) {
+        let safariViewController = SFSafariViewController(url: URL)
+        viewController?.present(safariViewController, animated: true, completion: nil)
+    }
+}
+```
+
+#### ModuleConfigurator configure関数を修正
+```
+//  MainMainConfigurator.swift
+import UIKit
+
+class MainModuleConfigurator {
+    ...
+    private func configure(viewController: MainViewController) {
+        let presenter = MainPresenter()
+        let router = MainRouter(viewController, presenter: presenter)
+        presenter.view = viewController
+        presenter.router = router
+
+        let interactor = MainInteractor(remoteDataManager: RemoteDataManager())
+        interactor.output = presenter
+
+        presenter.interactor = interactor
+        viewController.output = presenter
+    }
+    ...
+}
+```
+
+#### MainViewInput protocol
+```
+//  MainMainViewInput.swift
+import FeedKit
+
+protocol MainViewInput: class {
+    func setupInitialState()
+    func showRSS(items: [RSSFeedItem]?, image: UIImage?)
+}
+```
+
+#### MainViewOutput protocol
+```
+//  MainMainViewOutput.swift
+import UIKit
+
+protocol MainViewOutput {
+    func viewIsReady()
+    func showLink(URL: URL)
+}
+
+```
+
+#### 最後にViewControllerからPresenterへ依頼する
+```
+//  MainMainViewController.swift
+import UIKit
+import FeedKit
+import SafariServices
+
+class MainViewController: UITableViewController {
+    var items: [RSSFeedItem]? = nil
+    var image: UIImage? = nil
+    var output: MainViewOutput!
+
+    // MARK: Life cycle
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        tableView.register(UITableViewCell.self, forCellReuseIdentifier: "cell")
+        tableView.tableFooterView = UIView()
+        output.viewIsReady()
+    }
+}
+
+extension MainViewController: MainViewInput {
+    // MARK: MainViewInput
+    func setupInitialState() {}
+
+    func showRSS(items: [RSSFeedItem]?, image: UIImage?) {
+        self.items = items
+        self.image = image
+        DispatchQueue.main.async {
+            self.tableView.reloadData()
+        }
+    }
+}
+
+extension MainViewController {
+    ...
+
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        guard let link = items?[indexPath.row].link else {
+            return
+        }
+        guard let URL = URL(string: link) else {
+            return
+        }
+        output.showLink(URL: URL)
+    }
+}
+
+```
+
+## テストを作成
+```
+//
+//  MainMainInteractorTests.swift
+//  swift-viper-rss
+//
+//  Created by honda on 09/01/2020.
+//  Copyright © 2020 sample. All rights reserved.
+//
+
+import XCTest
+import FeedKit
+@testable import swift_rss_sample
+
+class MainInteractorTests: XCTestCase {
+    var interactor: MainInteractor!
+    var presenter: MockPresenter!
+    var remoteDataManager: MockRemoteDataManager!
+
+    override func setUp() {
+        super.setUp()
+        remoteDataManager = MockRemoteDataManager()
+        presenter = MockPresenter()
+        interactor = MainInteractor(remoteDataManager: remoteDataManager)
+        interactor.output = presenter
+    }
+
+    override func tearDown() {
+        // Put teardown code here. This method is called after the invocation of each test method in the class.
+        super.tearDown()
+    }
+
+    func test_getCall() {
+        interactor.fetchRSS()
+        XCTAssert(presenter.RSSGetedCalled)
+    }
+
+    class MockPresenter: MainInteractorOutput {
+        var RSSGetedCalled = false
+        var failedCalled = false
+
+        func RSSGeted(_ feed: Feed) {
+            RSSGetedCalled = true
+        }
+
+        func faild(_ error: String) {
+            failedCalled = true
+        }
+    }
+
+    class MockRemoteDataManager: RemoteDataManagerProtocol {
+        func get(completion: ((Feed) -> Void)?, fail: ((String) -> Void)?) {
+            completion?(Feed.rss(RSSFeed()))
+        }
+    }
+}
+```
 
 ## まとめ
+実装をした結果はGitHubを確認してください。(https://github.com/honda-n/swift-viper-rss)
