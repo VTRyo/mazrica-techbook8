@@ -109,7 +109,7 @@ Test group path: swift-rss-sampleTests/Classes/Modules/Main
 ```
 
 このようにコードが生成されます。
-画像
+![ツリー](images/スクリーンショット_nao_01)
 
 #### UITableViewControllerを継承するように書き換える
 
@@ -123,15 +123,15 @@ class MainViewController: UIViewController, MainViewInput {
 
 Main.storyboardを開き、RSS Scenceのcustom classを MainViewControllerへ変更します。
 
-画像
+![MainViewControllerを追加](images/スクリーンショット_nao_02)
 
 RSS Scence へ NSObjectを追加して、custom classへMainModuleInitializerを追加します。
 
-画像
+![ainModuleInitializerを追加](images/スクリーンショット_nao_03)
 
 最期に@IBOutletをMainViewControllerへ繋げばコントローラーの置き換えは完了です。
 
-画像
+![ツリー](images/スクリーンショット_nao_04)
 
 #### ViewContoler クラスから処理を分割する
 
