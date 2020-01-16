@@ -421,14 +421,7 @@ extension MainViewController {
 
 ## テストを作成
 ```
-//
 //  MainMainInteractorTests.swift
-//  swift-viper-rss
-//
-//  Created by honda on 09/01/2020.
-//  Copyright © 2020 sample. All rights reserved.
-//
-
 import XCTest
 import FeedKit
 @testable import swift_rss_sample
