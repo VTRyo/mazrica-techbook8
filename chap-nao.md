@@ -108,7 +108,7 @@ Test group path: swift-rss-sampleTests/Classes/Modules/Main
 ```
 
 このようにコードが生成されます。
-![ツリー](images/スクリーンショット_nao_01)
+![ツリー](images/chap-nao/スクリーンショット_nao_01)
 
 #### UITableViewControllerを継承するように書き換える
  初めに、生成されたViewControllerがUITableViewControllerを継承するように、書き換えます。
@@ -122,13 +122,13 @@ class MainViewController: UITableViewController {
  標準で導入されるVIPERのテンプレートには、StoryBoardから初期化を行えるようになる為、設定を追加する必要があります。
 
  Main.storyboardを開き、RSS Scenceのcustom classを MainViewControllerへ変更します。
-![MainViewControllerを追加](images/スクリーンショット_nao_02)
+![MainViewControllerを追加](images/chap-nao/スクリーンショット_nao_02)
 
  RSS Scence へ NSObjectを追加して、custom classへMainModuleInitializerを追加します。
-![MainModuleInitializerを追加](images/スクリーンショット_nao_03)
+![MainModuleInitializerを追加](images/chap-nao/スクリーンショット_nao_03)
 
  最期に@IBOutletをMainViewControllerへ繋げばコントローラーの置き換えは完了です。
-![ツリー](images/スクリーンショット_nao_04)
+![ツリー](images/chap-nao/スクリーンショット_nao_04)
 
 #### ViewContoler クラスから処理を分割する
 ここからはコードを置き換えてリファクタリングしていきます。
