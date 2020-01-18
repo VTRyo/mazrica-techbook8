@@ -26,6 +26,7 @@
   "catalog": {
     "PREDEF": ["chap-preface.md"],
     "CHAPS": [
+      "chap-easybooks.md",
       "chap-ryo.md",
       "chap-forte.md",
       "chap-kaeru.md",
