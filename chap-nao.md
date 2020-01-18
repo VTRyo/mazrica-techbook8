@@ -141,6 +141,7 @@ class MainViewController: UITableViewController {
 import UIKit
 
 extension UIImage {
+    // UIImageを指定したCGSizeでリサイズする
     func resize(size _size: CGSize) -> UIImage? {
         let widthRatio = _size.width / size.width
         let heightRatio = _size.height / size.height
@@ -159,6 +160,7 @@ extension UIImage {
         return resizedImage
     }
 
+    // ネットワークからUIImageを取得する
     static func imageWithUrl(_ URL: URL) -> UIImage? {
         do {
             let data = try Data(contentsOf: URL)
@@ -444,7 +446,7 @@ extension MainViewController {
 
 ## テストを作成
  generambaのセットアップした時にあるように、生成されたVIPERのファイルへ対応したテストファイルが生成されています。
-今回は、Interactorを修正して、だだしくRSSを取得する関数がよばれるかのテスト  追加します。
+今回は、InteractorTestを修正して、だだしくRSSを取得する関数が実行されるかのテスト追加します。
 ```
 //  MainMainInteractorTests.swift
 import XCTest
