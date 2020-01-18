@@ -36,7 +36,8 @@
       "chap-woody.md",
       "chap-140.md",
       "chap-kitayama.md",
-      "chap-cap.md"
+      "chap-cap.md",
+      "chap-red.md"
     ],
     "APPENDIX": ["chap-appendix.md"],
     "POSTDEF": ["chap-postscript.md", "chap-specialthanks.md", "chap-contributors.md"]
