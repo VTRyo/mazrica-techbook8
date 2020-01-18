@@ -28,3 +28,9 @@ VTRyo / [@3s_hv](https://vtryo.me/)
 * [【合同誌】セイチョウ・ジャーニー](https://booth.pm/ja/items/1038923)
 * [【合同誌】挫折論への招待](https://booth.pm/ja/items/1317801)
 * [【単著】誰も知らないエンドポイント](https://booth.pm/ja/items/1567107)
+
+#### 会社でやりたいことをやるための技術: FORTE / @FORTEgp05
+
+FORTE / [@FORTEgp05](https://twitter.com/FORTEgp05)
+
+Webアプリケーションのバックエンドエンジニアですが、いろいろやってます。Twitter、ブログ、Podcast配信、数多くの趣味と楽しく活動中。今回はマツリカに入社するまでの経緯と入社してからの日々で感じた内容を言語化してみました。やりたいこと、やれてますか??
