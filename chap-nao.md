@@ -17,21 +17,22 @@
 
 ## 開発に必要なもの
  Xcodeはもちろんインストールされているとおもいますので、その他で、必要はツールをインストールしていきます。
-#### 手順１ Cocoapodsをインストールする
+### Cocoapodsをインストールする
  今回のサンプルで、RSSをパースする目的でFeedKit(https://github.com/nmdias/FeedKit)を利用している為、Cocoapodsを追加します。
 ```
 $ [sudo] gem install cocoapods
 ```
 
-#### 手順２ ファイル自動生成のGemをインストールする
+### ファイル自動生成のGemをインストールする
  VIPERのテンプレートを生成する目的で、generambaを導入します。
-
+Generamba(https://github.com/strongself/Generamba)は、Xcodeを操作するために作成されたコードジェネレーターです。 主にVIPERモジュールを生成するように設計されていますが、他のクラスの生成用にカスタマイズするのは非常に簡単です（Objective-CとSwiftの両対応）。
 ```
 $ [sudo] gem install generamba
 ```
 
-#### 手順３ generamba の セットアップ
+### generamba の セットアップ
  まずリファクタリングするアプリケーションをクローンして、セットアップを行います。
+Q&A形式で回答していくだけで、テンプレートを生成に必要なRambafileが生成されます。
 ```
 $ git clone https://github.com/honda-n/swift-rss-sample.git
  swift-viper-rss 👈改行せずに入力してください
@@ -82,7 +83,7 @@ Do you want to add some well known templates to the Rambafile? (yes/no)
 Rambafile successfully created! Now run `generamba template install`.
 ```
 
-#### 手順4 テンプレートをインストール
+### テンプレートをインストール
  直下に生成されたRambafileを元にテンプレートをインストールします。
 ```
 $ generamba template install
@@ -92,8 +93,8 @@ Installing swifty_viper...
 
 ## リファクタリング
  VIPERへ書き換える準備が整いましたので、ここからは、VIPERアーキテクチャを導入してリファクタリングを行います。
-#### コードを生成
- Mainという名前で、VIPERのコードを生成します。
+### コードを生成
+ 今回は、generambaでインストールした、swifty_viperというテンプレートを元に、Mainという名前でVIPERのコードを生成します。
 ```
 $ generamba gen Main swifty_viper
 ...
@@ -110,15 +111,15 @@ Test group path: swift-rss-sampleTests/Classes/Modules/Main
 このようにコードが生成されます。
 ![ツリー](images/chap-nao/スクリーンショット_nao_01)
 
-#### UITableViewControllerを継承するように書き換える
- 初めに、生成されたViewControllerがUITableViewControllerを継承するように、書き換えます。
+### UITableViewControllerを継承するように書き換える
+ 初めに、生成された至ってシンプルなViewControllerを、UITableViewControllerを継承するように、書き換えます。
 ```
 //  MainMainViewController.swift
 class MainViewController: UITableViewController {
 ...
 ```
 
-#### StoryBoardからモジュールを初期化できるようにする
+### StoryBoardからモジュールを初期化できるようにする
  標準で導入されるVIPERのテンプレートには、StoryBoardから初期化を行えるようになる為、設定を追加する必要があります。
 
  Main.storyboardを開き、RSS Scenceのcustom classを MainViewControllerへ変更します。
@@ -130,10 +131,10 @@ class MainViewController: UITableViewController {
  最期に@IBOutletをMainViewControllerへ繋げばコントローラーの置き換えは完了です。
 ![ツリー](images/chap-nao/スクリーンショット_nao_04)
 
-#### ViewContoler クラスから処理を分割する
+### ViewContoler クラスから処理を分割する
 ここからはコードを置き換えてリファクタリングしていきます。
 
-#### Extensionクラスは、別ファイルへ
+### Extensionクラスは、別ファイルへ
  初めにextensionで定義されたUIKitのクラス拡張を別ファイルへ定義します。
 今回は、UIImage+Extenstion.swiftとしていますが、命名は自由です。
 ```
@@ -173,7 +174,7 @@ extension UIImage {
 }
 ```
 
-#### RemoteDataManagerを定義する
+### RemoteDataManagerを定義する
  サンプルのRSSを取得する処理は、DateManagerとして書き出します。
 VIPERの場合、テストを作成する際にモックできるようにProtocolを定義し、クラスで継承して作成しています。
 
@@ -207,7 +208,7 @@ class RemoteDataManager: RemoteDataManagerProtocol {
 }
 ```
 
-#### InteractorInput protocolを定義
+### InteractorInput protocolを定義
  Interactorへ先程作成したDataManagerクラスを呼び出すプロトコルを定義します。
 ```
 //  MainMainInteractorInput.swift
@@ -219,7 +220,7 @@ protocol MainInteractorInput {
 
 ```
 
-#### InteractorOutput protocolを定義
+### InteractorOutput protocolを定義
  呼び出された結果を呼び出し先へ返す為、RSSGeted関数とエラーを返すfaild関数をプロトコルを定義します。
 ```
 //  MainMainInteractorOutput.swift
@@ -232,7 +233,7 @@ protocol MainInteractorOutput: class {
 }
 ```
 
-#### Interactorへ初期化処理を追加
+### Interactorへ初期化処理を追加
  InteractorInput のプロトコルを継承したクラスへ処理を移植します。
 Interactorのinitrizerを追加して、DataManagerを受け取るようにします。
 この形にすることでUnitTestを定義する際に、モックした処理を定義しやすくなります。
@@ -256,7 +257,7 @@ class MainInteractor: MainInteractorInput {
     }
 ```
 
-#### RouterInput protocolを定義
+### RouterInput protocolを定義
  Routerは別画面へ遷移などの処理のプロトコルを定義します。
 ```
 //  MainMainRouterInput.swift
@@ -267,7 +268,7 @@ protocol MainRouterInput {
 }
 ```
 
-#### MainRouterへ遷移処理を移植
+### MainRouterへ遷移処理を移植
  RouterInputのプロトコルを継承したクラスへ遷移処理を定義します。
 ```
 //  MainMainRouter.swift
@@ -290,7 +291,7 @@ class MainRouter: MainRouterInput {
 }
 ```
 
-#### ModuleConfigurator configure関数を修正
+### ModuleConfigurator configure関数を修正
  Configuratorは、StoryBoardから初期化される際の処理で、今回はRouterとInteractorへ初期化処理を追加した為、対応したクラスの初期化を変更します。
 ```
 //  MainMainConfigurator.swift
@@ -314,7 +315,7 @@ class MainModuleConfigurator {
 }
 ```
 
-#### 機能を集約する Presenterを定義する
+### 機能を集約する Presenterを定義する
  ViewはUIKitに関わる処理に限定する為、それ以外の処理をPresenterへ移植します。
 ```
 //  MainMainPresenter.swift
@@ -362,7 +363,7 @@ extension MainPresenter: MainInteractorOutput {
 }
 ```
 
-#### MainViewInput protocol
+### MainViewInput protocol
  ViewInputには、Presenterから描画したいRSSを受け取る関数を追加します。
 ```
 //  MainMainViewInput.swift
@@ -374,7 +375,7 @@ protocol MainViewInput: class {
 }
 ```
 
-#### MainViewOutput protocol
+### MainViewOutput protocol
  ViewOutputには、セルがクリックされた場合にインアップブラウザを表示する処理を追加します。
 ```
 //  MainMainViewOutput.swift
@@ -387,7 +388,7 @@ protocol MainViewOutput {
 
 ```
 
-#### 最後にViewControllerからPresenterへ依頼する
+### 最後にViewControllerからPresenterへ依頼する
  最後に、ViewContollerから、Presenterの各処理を呼び出しを追加します。
 こうすることでViewControllerは、UIKit関連の処理をシンプルに扱うだけとなります。
 ```
