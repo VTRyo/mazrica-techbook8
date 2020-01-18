@@ -28,6 +28,7 @@
     "CHAPS": [
       "chap-ryo.md",
       "chap-forte.md",
+      "chap-nao.md",
       "chap-norihey.md"
     ],
     "APPENDIX": ["chap-appendix.md"],
