@@ -32,7 +32,8 @@
       "chap-kaeru.md",
       "chap-nao.md",
       "chap-norihey.md",
-      "chap-natsuko.md"
+      "chap-natsuko.md",
+      "chap-140.md"
     ],
     "APPENDIX": ["chap-appendix.md"],
     "POSTDEF": ["chap-postscript.md", "chap-specialthanks.md", "chap-contributors.md"]
