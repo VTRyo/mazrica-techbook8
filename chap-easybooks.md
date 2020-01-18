@@ -247,3 +247,67 @@ easybooks では Markdown に関してはほぼ remark に任せています。�
 
 また、Re:VIEW の読み書きをするプラグインや、TeXの書き出しをするプラグインを定義しています。
 
+### unified
+
+* https://github.com/unifiedjs/unified
+
+使い方としては、まず `unified().use(plugin)` のように、`use`メソッドでプラグインを登録します。
+
+あとは、`parse` メソッドでテキストの構文解析を行い、`process` メソッドで加工をし、`stringify`メソッドで何かしらのテキスト出力を行います。
+
+* Markdown の remark
+* HTML の rehype
+
+など、いくつかの有名プラグインがあります。
+
+### remark
+
+* https://github.com/remarkjs/remark
+
+remark は Markdown を読み書きする定番のプラグインです。remark も rehype も利用実績が多いため、少なくとも自作したりマイナーなライブラリを使うよりは脆弱性が少ないことが期待できます。
+
+Markdown もオリジナルの文法だけではなく、CommonMark や Github Fravored Markdown など、拡張文法にも対応しています。
+
+### プラグインの作り方
+
+[list:parse-review]は easybooks の Re:VIEWのパーサープラグインのコードの一部です。
+
+```ts {id=parse-review}
+export default function parseReview() {
+  //@ts-ignore
+  this.Parser = (doc: string, vfile: any): EBAST.Root => {
+    return {
+      type: 'root',
+      children: parse(doc),
+    }
+  }
+}
+```
+
+thisを操作するときに面倒なので `//@ts-ignore` で TypeScript の警告を抑制しています。
+
+プラグインは、`this` に `Parser` や `Compiler` などの関数を追加するしておくと、プラグインとして起動できます。
+
+`EBAST` は、EasyBooks AST で、Markdown の AST である MDAST をベースとしつつ、easybooks 用に拡張した型です。
+
+`parse` では、Re:VIEW記法を正規表現などを使い構文解析を行っています。
+
+[list:ebast-to-review]は EBAST を Re:VIEWソースに変換するためのプラグインの一部です。
+
+```ts {id=ebast-to-review}
+export default function ebastToReview() {
+  // @ts-ignore
+  this.Compiler = (tree: EBAST.Root, vfile: any) => {
+    return compiler(tree, {
+      list: 0,
+      id: 0,
+      chapter: typeof vfile.data === 'string' ? vfile.data : '',
+    })
+  }
+}
+```
+
+`Compiler` は AST を受け取り、実際の出力文字列に変換する関数です。
+
+`compiler` 関数は、ASTを再帰的に処理する関数です。
+
