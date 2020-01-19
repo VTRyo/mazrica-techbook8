@@ -1,8 +1,8 @@
 # VIPERでiOSアプリのリファクタリング実践
 
- いわゆるAppleMVCで構築されたアプリケーションをリファクタリングする時、Redux、MVVM、Clean Architectureと悩んだ経験があるのではないでしょうか？
+　いわゆるAppleMVCで構築されたアプリケーションをリファクタリングする時、Redux、MVVM、Clean Architectureと悩んだ経験があるのではないでしょうか？
 「VIPER」を導入すれば、既存実装を活かしつつ、責務が集中してしまったViewControllerを分割し、メンテナンス性の高いコードへ書き換えることが可能です。
- 今回は、実際にiOSアプリケーションを処理をVIPERでリファクタする方法を紹介します。
+今回は、実際にiOSアプリケーションを処理をVIPERでリファクタする方法を紹介します。
 
 ## はじめに
  著者のnao(@1wa46)です。マツリカでは、iOSアプリケーションの開発を担当しています。
@@ -405,7 +405,8 @@ class MainViewController: UITableViewController {
     // MARK: Life cycle
     override func viewDidLoad() {
         super.viewDidLoad()
-        tableView.register(UITableViewCell.self, forCellReuseIdentifier: "cell")
+        tableView.register(UITableViewCell.self
+          , forCellReuseIdentifier: "cell")
         tableView.tableFooterView = UIView()
         output.viewIsReady()
     }
