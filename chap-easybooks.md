@@ -1,44 +1,43 @@
 # Markdownで合同誌執筆を支える技術
 
-どうも、皆様ごきげんよう。この合同誌を書いたメンバーの中ではもっとも近いタイミングで入社したえるきちです。大体、JavaScript/TypeScriptで何かしているエンジニアです。
-
 この章では、この合同誌や、親方Projectのワンストップシリーズ[^onestop-seriese]の執筆で使っている easybooks というソフトウェアについて説明します。
 
-[^onestop-seriese]: Twitterでハッシュタグは #ワンストップシリーズ です。
+[^onestop-seriese]: Twitterハッシュタグ #ワンストップシリーズ
 
-easybooksは筆者がTypeScriptで作成しているソフトウェアで、MarkdownやRe:VIEW記法で書かれた原稿データを元にPDFを生成するソフトウェアです。執筆仲間でありライバルである大岡さんに「ePubいいぞー」と布教されているため、近いうちにePubを吐けるように改修すると思います[^easybooks-epub]。
+この合同誌を書いたメンバーの中ではもっとも近いタイミングで入社したえるきちです。大体、JavaScript/TypeScriptで何かしているエンジニアです。
 
+easybooksは筆者がTypeScriptで作成しているソフトウェアで、MarkdownやRe:VIEW記法で書かれた原稿データを元にPDFを生成するソフトウェアです。執筆仲間でありライバルでもある大岡さん[^oukayuka-twitter]に「ePubいいぞー」と布教されているため、近いうちにePubを吐けるように改修すると思います[^easybooks-epub]。
+
+[^oukayuka-twitter]: https://twitter.com/oukayuka
 [^easybooks-epub]: この本が出ているタイミングではもう対応しているかもしれません。
 
 ## 技術書を作成する技術
 
-技術書典や技書博などといったイベントが大盛り上がりしている技術同人誌界隈では、多くの人が、Re:VIEW[^Re-VIEW]（発音はレビューではなくリビューです）というソフトを使って執筆しています。
+技術書典や技書博などといったイベントが大盛り上がりしている技術同人誌界隈では、多くの人が、Re:VIEW[^Re-VIEW]（発音は**レ**ビューではなく**リ**ビューです）というソフトを使って執筆しています。
 
-[^Re-VIEW]: https://....
+[^Re-VIEW]: https://github.com/kmuto/review/
 
-Re:VIEWは、Rubyで書かれたソフトウェアで、Re:VIEW記法という、エンジニアにはなじみが薄い独特な記法で書かれた原稿ファイルを、TeXようなレイアウトエンジンを用いPDFやePubを生成できるソフトウェアです。もともと大昔に、ASCII社が社内の書籍制作を電子化する過程で生まれたソフトウェアがあり、その記法をベースとして、Re:VIEW記法が生み出されました。元々出版社が電子組版をする為の仕組みの末裔なのです。
+Re:VIEWは、Rubyで書かれたソフトウェアで、Re:VIEW記法という、エンジニアにはなじみの薄い、独特な記法で書かれた原稿ファイルを、TeXなどのレイアウトエンジンを用いPDFなどを生成できるソフトウェアです。もともと大昔に、ASCII社が社内の書籍制作を電子化するために生み出したソフトウェアがあり、そこで使われていたものを参考としてRe:VIEW記法が生み出されました。もともと出版社が電子組版をする為に作られた仕組みの末裔なのです。
 
-Re:VIEWが定番である理由は、Re:VIEW記法というテキストファイルで原稿データがほとんど完結できることと、TeXバックエンドによりそこそこ悪くない見た目の本を作れることにあります。
+Re:VIEWが定番である理由はほとんどをテキストファイルで執筆できることと、TeXバックエンドによりそこそこ悪くない見た目の本を作れることにあります。
 
-ただしTeXはKnuth御大の生み出した偉大なソフトウェアですが、TeXの生まれた42年前とは異なり、ソフトウェア設計・開発の考え方も大きく異なる現代において、TeXは人類には難しすぎます。
+ところが、TeXはKnuth御大の生み出した偉大なソフトウェアですが、TeXの生まれた42年前とは異なり、ソフトウェア設計・開発の考え方も大きく進化した現代において、TeXは一般的な人類にはあまりにも難しすぎます。
 
-そもそも我々にとってはあくまで本を書くのが目的であり、TeXを制することは二の次です。
-
-そこで筆者が生み出したのが、より easy に本を作成するための easybooks です。
+そもそも我々にとってはあくまで本を書くのが目的であり、TeXを制することは二の次です。そこで筆者が生み出したのが、よりイージーに本を作成するための easybooks です。
 
 ## easybooks
 
-easybooks は TypeScriptで書かれたソフトウェアで、Markdown/Re:VIEW記法からPDFを生成するソフトウェアです。内部的には、Markdownを、いったんツリー上のデータ構造であるASTに変換し、ASTを加工し、Re:VIEW形式のデータを用意して、Re:VIEWのコマンドを叩いてPDFにしています。
+easybooks は TypeScriptで書かれたソフトウェアで、Markdown/Re:VIEW記法からPDFを生成するソフトウェアです。内部的には、Markdownを、いったんツリー上のデータ構造であるAST[^AST]に変換し、ASTを加工し、Re:VIEW形式のデータを用意して、Re:VIEWのコマンドを叩いてPDFにしています。
 
-現時点ではMarkdownを使えるようにするラッパーに過ぎません。
+[^AST]: Abstract Syntax Tree の略で、日本語では抽象構文木といいます。簡単にいうと構文解析の結果をツリーとして保持するものです。
 
-ただし、ASTを使って加工する仕組みとして、Re:VIEWの読みこみも実装済みであり、TeXの書き出し機能も実装を開始していたり、仕組み上ePubの書き出しにも対応できるため、将来的にはRe:VIEWに非依存にする予定です[^ruby-and-javascript]。
+現時点ではMarkdownを使えるようにするラッパーに過ぎません。既存のソフトウェアにはMarkdownをRe:VIEW記法に変換するソフトもありますが、easybooksではMarkdown拡張を用いて、Re:VIEW記法の大半を実装しています。
 
-[^ruby-and-javascript]: JavaScriptとRuby両方動かすとか面倒ですしね
+さらには、Re:VIEWの読みこみも実装済みであり、TeXの書き出し機能も実装を開発中であるため、将来的にはRe:VIEWには依存せずに済むようにする予定です。JavaScriptとRuby両方動かすとか面倒ですしね。
 
-むしろTeX自体もなるべくなら使いたくありません。TeXはどうしても、インストールと設定が難解ですし、依存するパッケージなどが多すぎるため、HTML+CSSや他の何かしらのレンダリングの仕組みを使えればそれが望ましいため、脱TeXを中期的目標として考えています。
+むしろTeX自体もなるべくなら使いたくありません。TeXはどうしても、インストールと設定が難解[^tex-difficult]ですし、依存するパッケージなどが多すぎるため、HTML+CSSや他の何かしらのレンダリングの仕組みを使えればそれが望ましいため、脱TeXを中期的目標として考えています。
 
-実際、Re:VIEWで執筆してる大半のサークル主はTeXに苦しめられた経験があることでしょう！もし無ければ、とても幸せです。宝くじに当たるくらいのレアリティがあると思って間違い有りません。
+[^tex-difficult]: 実際、Re:VIEWで執筆してる大半のサークル主はTeXに苦しめられた経験があることでしょう。もし苦労したことがない人は、宝くじを買えばきっと当たるくらいには幸運な方です。
 
 ## easybookの使い方
 
@@ -152,7 +151,7 @@ npxコマンドを使う場合、インストールしていなくても実行�
 | :---         |     :---:      |          ---: |
 | git status   | git status     | git status    |
 | git diff     | git diff       | git diff      |
-
+```
 
 
 ### コード
@@ -207,12 +206,19 @@ console.log('hoge')
 ### 画像
 
 ```md
-![いちご](images/chap-easybooks/strawberries-4330211_640)
+![いちご](images/chap-easybooks/strawberries-4330211_640/jpg)
 ```
 
-![いちご](images/chap-easybooks/strawberries-4330211_640)
+![いちご](images/chap-easybooks/strawberries-4330211_640.jpg)
 
 * https://pixabay.com/ja/photos/%E3%82%A4%E3%83%81%E3%82%B4-%E3%83%95%E3%83%AB%E3%83%BC%E3%83%84-%E9%A3%9F%E5%93%81-%E9%A3%9F%E3%81%B9%E3%82%8B-4330211/
+
+```md
+![いちご](images/chap-easybooks/strawberries-4330211_640/jpg?scale=0.5)
+```
+
+![いちご](images/chap-easybooks/strawberries-4330211_640.jpg?scale=0.5)
+
 
 ### コメント
 
@@ -228,13 +234,18 @@ console.log('hoge')
 
 ## easybooks の中身について解説
 
-せっかくなので easybooks の中身についても解説していきます。easybooks は、Node.js という JavaScript 定番の処理系で動くアプリケーションです。
+せっかくなので easybooks の中身についても解説していきます。easybooks は、Node.js という JavaScript 定番の処理系（ランタイム）で動くアプリケーションです。
 
-Markdown を処理するライブラリでオススメは unified と remark です。
+Markdown を処理するライブラリでオススメは unified[^unified-url] と remark[^remark-url] です。
 
-unified はテキストの構文解析・加工・出力をプラグインで行う汎用的なライブラリであり、remark は unified の仕組みを使った Markdown を読み書き、加工するプラグインです。
+[^unified-url]: https://github.com/unifiedjs/unified
+[^remark-url]: https://github.com/remarkjs/remark
 
-remark では MDAST という Markdown 向け AST の型が定義されています。
+unified はテキストの構文解析・加工・出力をプラグインで行う汎用的なライブラリであり、remark は unified の仕組みを使った Markdown を読み書きする定番のプラグインです。同様のものに rehype というHTMLを処理するものもあります。
+
+remark も rehype も利用実績が多いため、自作したりマイナーなライブラリを使うよりは脆弱性やバグが少ないことを期待できます。
+
+remark では、Markdownのオリジナル文法だけではなく、CommonMark や Github Fravored Markdown など、拡張文法にも対応しています。また MDAST という Markdown 向け AST の型が定義されています。
 
 ```sh
 $ npm i @types/mdast -D
@@ -247,26 +258,12 @@ easybooks では Markdown に関してはほぼ remark に任せています。�
 
 また、Re:VIEW の読み書きをするプラグインや、TeXの書き出しをするプラグインを定義しています。
 
-### unified
+### unifiedの使い方
 
-* https://github.com/unifiedjs/unified
-
-使い方としては、まず `unified().use(plugin)` のように、`use`メソッドでプラグインを登録します。
+まず `unified().use(plugin)` のように、`use`メソッドでプラグインを登録します。
 
 あとは、`parse` メソッドでテキストの構文解析を行い、`process` メソッドで加工をし、`stringify`メソッドで何かしらのテキスト出力を行います。
 
-* Markdown の remark
-* HTML の rehype
-
-など、いくつかの有名プラグインがあります。
-
-### remark
-
-* https://github.com/remarkjs/remark
-
-remark は Markdown を読み書きする定番のプラグインです。remark も rehype も利用実績が多いため、少なくとも自作したりマイナーなライブラリを使うよりは脆弱性が少ないことが期待できます。
-
-Markdown もオリジナルの文法だけではなく、CommonMark や Github Fravored Markdown など、拡張文法にも対応しています。
 
 ### プラグインの作り方
 
