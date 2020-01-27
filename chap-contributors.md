@@ -36,6 +36,14 @@ FORTE / [@FORTEgp05](https://twitter.com/FORTEgp05)
 
 Webアプリケーションのバックエンドエンジニアですが、いろいろやってます。Twitter、ブログ、Podcast配信、数多くの趣味と楽しく活動中。今回はマツリカに入社するまでの経緯と入社してからの日々で感じた内容を言語化してみました。やりたいこと、やれてますか??
 
+#### 英語学習 アンチパターン: かえる / @d24d30033e5c469
+
+かえる / [@d24d30033e5c469](https://twitter.com/d24d30033e5c469)
+
+プログラマです。ブログやってます。
+
+* [Heppoko Binbo Yarou no Newbie Nikki](https://heppoko.hatenadiary.jp/)
+
 
 #### キャリアブランクから、楽しくカムバックする技術: なっちゃん / @natsukoaso3
 
