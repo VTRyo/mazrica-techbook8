@@ -26,9 +26,19 @@
   "catalog": {
     "PREDEF": ["chap-preface.md"],
     "CHAPS": [
+      "chap-easybooks.md",
       "chap-ryo.md",
       "chap-forte.md",
-      "chap-norihey.md"
+      "chap-kaeru.md",
+      "chap-nao.md",
+      "chap-norihey.md",
+      "chap-natsuko.md",
+      "chap-woody.md",
+      "chap-140.md",
+      "chap-kitayama.md",
+      "chap-cap.md",
+      "chap-red.md",
+      "chap-kotorieclair.md"
     ],
     "APPENDIX": ["chap-appendix.md"],
     "POSTDEF": ["chap-postscript.md", "chap-specialthanks.md", "chap-contributors.md"]
