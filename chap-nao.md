@@ -2,7 +2,7 @@
 
  いわゆるAppleMVCで構築されたアプリケーションをリファクタリングする時、Redux、MVVM、Clean Architectureと悩んだ経験があるのではないでしょうか？
 「VIPER」を導入すれば、既存実装を活かしつつ、責務が集中してしまったViewControllerを分割し、メンテナンス性の高いコードへ書き換えることが可能です。
- 今回は、実際にiOSアプリケーションを処理をVIPERでリファクタする方法を紹介します。
+今回は、実際にiOSアプリケーションを処理をVIPERでリファクタする方法を紹介します。
 
 ## はじめに
  著者のnao(@1wa46)です。マツリカでは、iOSアプリケーションの開発を担当しています。
@@ -122,20 +122,19 @@ class MainViewController: UITableViewController {
 ### StoryBoardからモジュールを初期化できるようにする
  標準で導入されるVIPERのテンプレートには、StoryBoardから初期化を行えるようになる為、設定を追加する必要があります。
 
- Main.storyboardを開き、RSS Scenceのcustom classを MainViewControllerへ変更します。
+ Main.storyboardを開き、RSS ScenceのCustom ClassをMainViewControllerへ変更します。
 ![MainViewControllerを追加](images/chap-nao/スクリーンショット_nao_02)
 
- RSS Scence へ NSObjectを追加して、custom classへMainModuleInitializerを追加します。
+ RSS Scence へ NSObjectを追加して、Custom ClassへMainModuleInitializerを追加します。
+ ModuleInitializer は、テンプレートから生成されたクラスで StoryBoard 上へ設定することで、ModuleConfiguratorを呼び出し、VIPERの各クラスを初期化することが出来ます。
 ![MainModuleInitializerを追加](images/chap-nao/スクリーンショット_nao_03)
 
  最期に@IBOutletをMainViewControllerへ繋げばコントローラーの置き換えは完了です。
 ![ツリー](images/chap-nao/スクリーンショット_nao_04)
 
-### ViewContoler クラスから処理を分割する
-ここからはコードを置き換えてリファクタリングしていきます。
-
 ### Extensionクラスは、別ファイルへ
- 初めにextensionで定義されたUIKitのクラス拡張を別ファイルへ定義します。
+ ここからはコードを置き換えてリファクタリングしていきます。
+初めにextensionで定義されたUIKitのクラス拡張を別ファイルへ定義します。
 今回は、UIImage+Extenstion.swiftとしていますが、命名は自由です。
 ```
 //  UIImage+Extenstion.swift
@@ -152,7 +151,7 @@ extension UIImage {
            width: size.width * ratio,
            height: size.height * ratio
         )
-        // 変更
+        // 引数のCGSizeを元に、描画を変更する
         UIGraphicsBeginImageContextWithOptions(resizedSize, false, 0.0)
         draw(in: CGRect(origin: .zero, size: resizedSize))
         let resizedImage = UIGraphicsGetImageFromCurrentImageContext()
@@ -207,8 +206,9 @@ class RemoteDataManager: RemoteDataManagerProtocol {
     }
 }
 ```
-
-### InteractorInput protocolを定義
+### Interactor
+ Interactor は、データに関わる処理(取得等)を配置します。
+#### InteractorInput protocolを定義
  Interactorへ先程作成したDataManagerクラスを呼び出すプロトコルを定義します。
 ```
 //  MainMainInteractorInput.swift
@@ -220,7 +220,7 @@ protocol MainInteractorInput {
 
 ```
 
-### InteractorOutput protocolを定義
+#### InteractorOutput protocolを定義
  呼び出された結果を呼び出し先へ返す為、RSSGeted関数とエラーを返すfaild関数をプロトコルを定義します。
 ```
 //  MainMainInteractorOutput.swift
@@ -233,7 +233,7 @@ protocol MainInteractorOutput: class {
 }
 ```
 
-### Interactorへ初期化処理を追加
+#### Interactorへ初期化処理を追加
  InteractorInput のプロトコルを継承したクラスへ処理を移植します。
 Interactorのinitrizerを追加して、DataManagerを受け取るようにします。
 この形にすることでUnitTestを定義する際に、モックした処理を定義しやすくなります。
@@ -256,8 +256,9 @@ class MainInteractor: MainInteractorInput {
         }
     }
 ```
-
-### RouterInput protocolを定義
+### Router
+ Routerは、ナビゲーション遷移や、モーダル遷移など、画面遷移を担当します。
+#### RouterInput protocolを定義
  Routerは別画面へ遷移などの処理のプロトコルを定義します。
 ```
 //  MainMainRouterInput.swift
@@ -268,8 +269,9 @@ protocol MainRouterInput {
 }
 ```
 
-### MainRouterへ遷移処理を移植
+#### MainRouterへ遷移処理を移植
  RouterInputのプロトコルを継承したクラスへ遷移処理を定義します。
+
 ```
 //  MainMainRouter.swift
 import SafariServices
@@ -290,9 +292,11 @@ class MainRouter: MainRouterInput {
     }
 }
 ```
-
-### ModuleConfigurator configure関数を修正
+### Configurator
+ Configuratorは、VIPERの各クラスを初期化することが出来ます。
+#### ModuleConfigurator configure関数を修正
  Configuratorは、StoryBoardから初期化される際の処理で、今回はRouterとInteractorへ初期化処理を追加した為、対応したクラスの初期化を変更します。
+
 ```
 //  MainMainConfigurator.swift
 import UIKit
@@ -305,7 +309,8 @@ class MainModuleConfigurator {
         presenter.view = viewController
         presenter.router = router
 
-        let interactor = MainInteractor(remoteDataManager: RemoteDataManager())
+        let interactor = MainInteractor(
+            remoteDataManager: RemoteDataManager())
         interactor.output = presenter
 
         presenter.interactor = interactor
@@ -315,7 +320,10 @@ class MainModuleConfigurator {
 }
 ```
 
-### 機能を集約する Presenterを定義する
+### Presenter
+ Presenterは、Viewから受け取った依頼を各クラスへ依頼する司令塔のような役割を担当します。
+
+#### 機能を集約する Presenterを定義する
  ViewはUIKitに関わる処理に限定する為、それ以外の処理をPresenterへ移植します。
 ```
 //  MainMainPresenter.swift
@@ -363,7 +371,9 @@ extension MainPresenter: MainInteractorOutput {
 }
 ```
 
-### MainViewInput protocol
+### View
+ Viewは、画面更新など純粋なUIKitの処理とPresenterへ処理を依頼する事のみを担当します。
+#### MainViewInput protocol
  ViewInputには、Presenterから描画したいRSSを受け取る関数を追加します。
 ```
 //  MainMainViewInput.swift
@@ -375,7 +385,7 @@ protocol MainViewInput: class {
 }
 ```
 
-### MainViewOutput protocol
+#### MainViewOutput protocol
  ViewOutputには、セルがクリックされた場合にインアップブラウザを表示する処理を追加します。
 ```
 //  MainMainViewOutput.swift
@@ -388,7 +398,7 @@ protocol MainViewOutput {
 
 ```
 
-### 最後にViewControllerからPresenterへ依頼する
+#### 最後にViewControllerからPresenterへ依頼する
  最後に、ViewContollerから、Presenterの各処理を呼び出しを追加します。
 こうすることでViewControllerは、UIKit関連の処理をシンプルに扱うだけとなります。
 ```
@@ -405,7 +415,8 @@ class MainViewController: UITableViewController {
     // MARK: Life cycle
     override func viewDidLoad() {
         super.viewDidLoad()
-        tableView.register(UITableViewCell.self, forCellReuseIdentifier: "cell")
+        tableView.register(UITableViewCell.self
+          , forCellReuseIdentifier: "cell")
         tableView.tableFooterView = UIView()
         output.viewIsReady()
     }
@@ -441,9 +452,10 @@ extension MainViewController {
         output.showLink(URL: URL)
     }
 }
-
-
 ```
+
+### Entity
+ Entityは、データ構造のStructやクラスを担当します。今回は、FeedKitのFeedクラスを利用している為、省略しています。
 
 ## テストを作成
  generambaのセットアップした時にあるように、生成されたVIPERのファイルへ対応したテストファイルが生成されています。
