@@ -171,30 +171,27 @@ LINE pay、PayPay、Kyashなどが利用できれば集金でも支払いでも�
 リストの作り方は簡単で、気になるスポットに対してリストのラベルを付与するだけです。
 Googleマップにはデフォルトで「行ってみたい」と「お気に入り」のリストが用意されており、そのほか任意でリストを追加することができます。
 
-実際にスマートフォンのアプリからリストに追加してみましょう。
-なおここではAndroid向けのアプリから追加しますが、iOSアプリでも操作手順は同様です。
-
 ここではマツリカのメンバーがよく利用している五反田のやきとん屋を行ってみたいリストに追加します。
 まずはお店を検索しましょう。
 
 リストに追加したい場所の名前の辺りをタップします。
 
-![](images/chap-norihey/searching.jpg)
+![検索結果](images/chap-norihey/searching.jpg)
 
 お店の詳細情報などが表示されたら、「保存」のアイコンをタップします。
 
-![](images/chap-norihey/searched.jpg)
+![保存ボタン](images/chap-norihey/searched.jpg)
 
 「リストに保存」の画面が表示されます。
 「行ってみたい」ラベルをタップしましょう。このときメモを追加することも可能です。
 
 追加したいラベルを全て選択したら完了をタップしましょう。これでリストへの追加が完了です。
 
-![](images/chap-norihey/list_google_map.jpg)
+![追加したいラベルの選択](images/chap-norihey/list_google_map.jpg)
 
 地図上でラベルがついていることが確認できます。
 
-![](images/chap-norihey/labeled_map.jpg)
+![地図上に表示されるラベル](images/chap-norihey/labeled_map.jpg)
 
 なお、「行ってみたい」リストに追加されているお店が近くにある時は Google マップが通知を出してくれるため、日頃から気になるお店はどんどんリストに追加しておくと良いでしょう。
 
@@ -206,11 +203,11 @@ Googleマップにはデフォルトで「行ってみたい」と「お気に�
 リスト名を入力します。リストの説明を追加することももできます。
 リスト名を入力したら「作成」をタップします。
 
-![](images/chap-norihey/new_list.jpg)
+![新しいリスト](images/chap-norihey/new_list.jpg)
 
 リストに追加されました。
 
-![](images/chap-norihey/listed.jpg)
+![お店が追加されたオリジナルリスト](images/chap-norihey/listed.jpg)
 
 「地図を表示」をタップすれば、リストに登録されているスポットが地図上に表示されます。
 
@@ -234,13 +231,13 @@ Googleマップも最近はレビューが充実してきており、お店を�
 スポットを利用する場合、Google マップアプリの左下にある「スポット」をタップします。
 下図のように「カクテルがおいしいお店」や「居心地が良いレストラン」などが表示されるため、これらから気になるものをタップすればお店の候補が表示されます。
 
-![](images/chap-norihey/ggmap_spot.jpg)
+![スポットをタップすると現れるドロワー](images/chap-norihey/ggmap_spot.jpg)
 
 フィードから情報を受け取る場合、右下の「おすすめ」をタップします。現在フォローしているエリアにおけるお店の新規開店などの情報が表示されます。
 フォローするエリアを追加する場合、右上の歯車のアイコンをタップすると現在フォローしているエリアや自分がよく訪れるエリアなどが表示されるので、ここでエリアを編集しましょう。
 
-![](images/chap-norihey/ggmap_recommend.jpg)
-![](images/chap-norihey/ggmap_recommend_settings.jpg)
+![フォローしているエリアの情報](images/chap-norihey/ggmap_recommend.jpg)
+![フォローするエリアの設定画面](images/chap-norihey/ggmap_recommend_settings.jpg)
 
 #### Instagram
 
@@ -251,8 +248,8 @@ Instagramもお店探しに非常に便利なツールです。
 特定の人物ではなくハッシュタグをフォローすることもできるため、例えば「五反田グルメ」のタグをフォローしておけば日常的に五反田のグルメ情報を得ることも可能です。
 もちろん必要な時だけ検索するというやり方もできます。
 
-![](images/chap-norihey/insta_search_tags.jpg)
-![](images/chap-norihey/insta_tag.jpg)
+![Instagramでのタグ名の検索結果](images/chap-norihey/insta_search_tags.jpg)
+![タグでの検索結果](images/chap-norihey/insta_tag.jpg)
 
 また、たいていのジャンルにはインフルエンサーがいるため、そうしたアカウントをフォローすることで自分の好きなジャンルのお店についての情報が手に入りやすくなります。
 
@@ -307,15 +304,15 @@ LINEのグループであればノートに貼り付けるようにすると候�
 
 リストを共有する場合、Googleマップのメニューを開き
 
-![](images/chap-norihey/ggmap_open_menu.jpg)
+![メニューボタン](images/chap-norihey/ggmap_open_menu.jpg)
 
 マイプレイスをタップします。
-![](images/chap-norihey/ggmap_menu.jpg)
+![メニュー画面](images/chap-norihey/ggmap_menu.jpg)
 
 共有したいリストのオプションを開き、共有オプションを編集しましょう
 
-![](images/chap-norihey/myplace.jpg)
-![](images/chap-norihey/share_option.jpg)
+![リストオプション](images/chap-norihey/myplace.jpg)
+![共有オプション](images/chap-norihey/share_option.jpg)
 
 #### Googleのマイマップを利用する
 
@@ -326,24 +323,24 @@ Googleマップ上でもマイマップに登録されている位置情報と�
 マイマップを利用する場合、まずはマップを作成しましょう。
 マイマップのアプリを起動し、右下の「＋」マークのボタンから作成できます。
 
-![](images/chap-norihey/create_mymap.jpg)
+![新規マップの作成画面](images/chap-norihey/create_mymap.jpg)
 
 マップを作成したら、マップに追加したいお店を検索して「地図に追加」を選択します。
 
-![](images/chap-norihey/search_for_mymap.jpg)
+![検索結果](images/chap-norihey/search_for_mymap.jpg)
 
 マップ上で表示されるようになりました。名前をタップすると詳細が表示されます。
 
-![](images/chap-norihey/mymap_place_detail.jpg)
+![マイマップ上での表示結果](images/chap-norihey/mymap_place_detail.jpg)
 
 追加されているレイヤが「無題のレイヤ」となっており、このままではどのような場所が追加されているのかわかりません。レイヤの名前を編集しましょう。
-右上の編集マークをタップすると編集画面が開きます。
+右上の編集マークをタップすると詳細画面が開きます。
 
-![](images/chap-norihey/mymap_detail_edit.jpg)
+![詳細画面](images/chap-norihey/mymap_detail_edit.jpg)
 
 レイヤ名の右にあるメニューアイコンをタップし、編集メニューに移ることができます。また、レイヤを追加することもできるため複数ジャンルのお店を追加して整理することも可能です。
 
-![](images/chap-norihey/mymap_layer_add.jpg)
+![新規レイヤの追加](images/chap-norihey/mymap_layer_add.jpg)
 
 マイマップに関してはPCブラウザからの方が編集しやすいため、マイマップを利用する際はブラウザ(https://www.google.com/maps/d/)から確認することをおすすめします。
 
@@ -384,7 +381,7 @@ Google マップに追加する方法についてもサイト内でまとめら�
 
 https://1000bero.net/essay07/#Google-5
 
-![](images/chap-norihey/1000bero.jpg)
+![せんべろ東京マップ](images/chap-norihey/1000bero.jpg)
 
 ## 中飲み編
 
@@ -416,18 +413,18 @@ Amazonや業務スーパー、肉のハナマサなどの通販サイトであ�
 筆者もいくつかのレシピ本を持っていますが、特に重宝しているのが株式会社オレンジページが出版しているおつまみのレシピ集です。
 主婦(主夫)をメインターゲットにした雑誌だけあって、お手軽に用意でき、それでいて味の濃い、お酒に合うおつまみが多いです。
 
-![](images/chap-norihey/orangepage_snack.jpg)
+![The おつまみ150 (オレンジページブックス)](images/chap-norihey/orangepage_snack.jpg)
 
 また、オレンジページ.net(https://www.orangepage.net/)で「おつまみ」と検索すると 1,239件ものレシピがヒットし(2020年1月18日時点)、
 「ビールに合うおつまみ」や「焼酎に合うおつまみ」など、飲みたいお酒に合わせたレシピを検索することもできます。
 
-![](images/chap-norihey/orangepage_net.png)
+![オレンジページnet](images/chap-norihey/orangepage_net.png)
 
 そのほか、料理が好きな男性を対象とした雑誌 dancyu から出ているおつまみレシピ集などもあります。
 こちらのレシピ本は食材や飲みたいお酒に合わせた索引がついており、コンセプトに合わせたおつまみを用意できるためこちらも重宝します。
 ただし、少し手の込んだおつまみが多く、「よし、ちょっと作ってみるか」という感覚で利用するには不向きです。
 
-![](images/chap-norihey/dancyu_snack.jpg)
+![dancyu何度でもつくりたい絶品おつまみ450レシピ (プレジデントムック)](images/chap-norihey/dancyu_snack.jpg)
 
 cookpadやDELISH KITCHEN、クラシルなどのレシピ情報サービスでもおつまみを探すことができます。
 単純に「おつまみ」と入れると数が多すぎるので、「おつまみ チーズ」や「おつまみ ビール」のように食材名やお酒の名前を併記して検索するといいでしょう。
@@ -494,8 +491,8 @@ cookpadやDELISH KITCHEN、クラシルなどのレシピ情報サービスで�
 LINEについては日常的に利用している人も多く、ここで紹介する内容についてはすでにご存知の方もたくさんいらっしゃるかもしれません。
 LINEには日程調整機能があるため、招待するメンバーが決まっており、全員がLINEでやりとりできるような環境であればLINE内で日程決めまで行えます。
 
-![](images/chap-norihey/line_group.jpg)
-![](images/chap-norihey/line_chousei.jpg)
+![LINEのトークルームメニュー](images/chap-norihey/line_group.jpg)
+![LINE日程調整](images/chap-norihey/line_chousei.jpg)
 
 また、会のメンバーを招待するためのグループを作ることをおすすめします。LINEで複数人とチャットをするにはグループトークと複数人トークという二つの方法が存在します。
 グループトークとは、まず先にトークルームを作り、そこに人を招待していくというものです。招待を受けた人の承認を経てグループに人が追加されます。
@@ -511,7 +508,7 @@ LINEには日程調整機能があるため、招待するメンバーが決ま�
 人を招待するのにGoogleカレンダーを利用することもできます。会社の人たちを招待する場合などに利用されるケースが多いかもしれません。
 Googleカレンダーであれば時間、位置情報、注意点や金額などの備考を一つにまとめておけるため重宝します。
 
-![](images/chap-norihey/ggcal_event_add.png)
+![Googleカレンダーの新規イベント追加画面](images/chap-norihey/ggcal_event_add.png)
 
 ## 当日編
 
