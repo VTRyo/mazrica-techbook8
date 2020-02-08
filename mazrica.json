@@ -4,9 +4,9 @@
   "aut": ["Mazrica Techbook Project"],
   "language": "ja",
   "toc": true,
-  "rights": "(C) 2018-2019　Mazrica Techbook Project",
+  "rights": "(C) 2020　Mazrica Techbook Project",
   "colophon": true,
-  "history": [["2019-x-xx xxxxxx"]],
+  "history": [["2020-2-29（令和2年）技術書典8 v1.0.0"]],
   "prt": "日光企画",
   "pbl": "Mazrica Techbook Project",
   "edt": "VTRyo",
@@ -40,7 +40,6 @@
       "chap-kaeru.md",
       "chap-140.md"
     ],
-    "APPENDIX": ["chap-appendix.md"],
-    "POSTDEF": ["chap-postscript.md", "chap-specialthanks.md", "chap-contributors.md"]
+    "POSTDEF": ["chap-postscript.md",  "chap-contributors.md"]
 	}
 }
