@@ -36,12 +36,12 @@
       "chap-woody.md",
       "chap-norihey.md",
       "chap-kitayama.md",
-      "chap-easybooks.md",
       "chap-nao.md",
       "chap-kaeru.md",
       "chap-140.md",
       "chap-erukiti-remote.md",
-      "chap-erukiti-react.md"
+      "chap-erukiti-react.md",
+      "chap-easybooks.md"
     ],
     "POSTDEF": ["chap-postscript.md",  "chap-contributors.md"]
 	}
