@@ -38,7 +38,8 @@
       "chap-easybooks.md",
       "chap-nao.md",
       "chap-kaeru.md",
-      "chap-140.md"
+      "chap-140.md",
+      "chap-erukiti-remote.md"
     ],
     "POSTDEF": ["chap-postscript.md",  "chap-contributors.md"]
 	}
