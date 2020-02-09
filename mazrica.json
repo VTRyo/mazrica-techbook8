@@ -40,7 +40,8 @@
       "chap-nao.md",
       "chap-kaeru.md",
       "chap-140.md",
-      "chap-erukiti-remote.md"
+      "chap-erukiti-remote.md",
+      "chap-erukiti-react.md"
     ],
     "POSTDEF": ["chap-postscript.md",  "chap-contributors.md"]
 	}
