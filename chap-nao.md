@@ -12,7 +12,7 @@
  VIPERは、MVCやMVVMなどに代表されるソフトウェアアーキテクチャのひとつです。
 「Clean ArchitectureをiOSに応用したもの」です。VIPERは、Clean Architectureにイメージされる円形の図を使わずにビューを起点にし、ファットビューコントローラの低減を中心に据えているのが特徴的です。
 
-## ファクタリングするiOSアプリケーション
+## リファクタリングするiOSアプリケーション
 今回、リファクタリングするのは、RSSをパースしてUITableViewへ表示する簡単なアプリケーションです。Swift5で約100行で実装されています。下記のGitHubを確認してください。(https://github.com/honda-n/swift-rss-sample)
 
 ## 開発に必要なもの
@@ -30,7 +30,7 @@ Generamba(https://github.com/strongself/Generamba)は、Xcodeを操作するた�
 $ [sudo] gem install generamba
 ```
 
-### generamba の セットアップ
+### generamba の セットアップする
  まずリファクタリングするアプリケーションをクローンして、セットアップを行います。
 Q&A形式で回答していくだけで、テンプレートを生成に必要なRambafileが生成されます。
 ```
@@ -83,7 +83,7 @@ Do you want to add some well known templates to the Rambafile? (yes/no)
 Rambafile successfully created! Now run `generamba template install`.
 ```
 
-### テンプレートをインストール
+### テンプレートをインストールする
  直下に生成されたRambafileを元にテンプレートをインストールします。
 ```
 $ generamba template install
