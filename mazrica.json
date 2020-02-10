@@ -1,12 +1,12 @@
 {
   "bookname": "book",
-  "booktitle": "マツリカごった煮本（仮）",
+  "booktitle": "働きアップグレードガイド2020",
   "aut": ["Mazrica Techbook Project"],
   "language": "ja",
   "toc": true,
-  "rights": "(C) 2018-2019　Mazrica Techbook Project",
+  "rights": "(C) 2020　Mazrica Techbook Project",
   "colophon": true,
-  "history": [["2019-x-xx xxxxxx"]],
+  "history": [["2020-2-29（令和2年）技術書典8 v1.0.0"]],
   "prt": "日光企画",
   "pbl": "Mazrica Techbook Project",
   "edt": "VTRyo",
@@ -26,21 +26,23 @@
   "catalog": {
     "PREDEF": ["chap-preface.md"],
     "CHAPS": [
-      "chap-easybooks.md",
-      "chap-ryo.md",
+      "chap-ryo.re",
+      "chap-kotorieclair.md",
+      "chap-erukiti-remote.md",
+      "chap-inoue.md",
       "chap-forte.md",
-      "chap-kaeru.md",
-      "chap-nao.md",
-      "chap-norihey.md",
       "chap-natsuko.md",
-      "chap-woody.md",
-      "chap-140.md",
-      "chap-kitayama.md",
       "chap-cap.md",
       "chap-red.md",
-      "chap-kotorieclair.md"
+      "chap-woody.md",
+      "chap-norihey.md",
+      "chap-kitayama.md",
+      "chap-nao.md",
+      "chap-kaeru.md",
+      "chap-140.md",
+      "chap-erukiti-react.md",
+      "chap-easybooks.md"
     ],
-    "APPENDIX": ["chap-appendix.md"],
-    "POSTDEF": ["chap-postscript.md", "chap-specialthanks.md", "chap-contributors.md"]
+    "POSTDEF": ["chap-postscript.md",  "chap-contributors.md"]
 	}
 }
