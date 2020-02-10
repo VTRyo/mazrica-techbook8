@@ -28,6 +28,7 @@
     "CHAPS": [
       "chap-ryo.re",
       "chap-kotorieclair.md",
+      "chap-erukiti-remote.md",
       "chap-inoue.md",
       "chap-forte.md",
       "chap-natsuko.md",
@@ -39,7 +40,6 @@
       "chap-nao.md",
       "chap-kaeru.md",
       "chap-140.md",
-      "chap-erukiti-remote.md",
       "chap-erukiti-react.md",
       "chap-easybooks.md"
     ],
