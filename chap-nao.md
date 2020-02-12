@@ -30,7 +30,7 @@ Generamba(https://github.com/strongself/Generamba)は、Xcodeを操作するた�
 $ [sudo] gem install generamba
 ```
 
-### generambaをセットアップする
+### generambaのセットアップ
  まずリファクタリングするアプリケーションをクローンして、セットアップを行います。
 Q&A形式で回答していくだけで、テンプレートを生成に必要なRambafileが生成されます。
 ```
