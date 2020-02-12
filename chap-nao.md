@@ -12,7 +12,7 @@
  VIPERは、MVCやMVVMなどに代表されるソフトウェアアーキテクチャのひとつです。
 「Clean ArchitectureをiOSに応用したもの」です。VIPERは、Clean Architectureにイメージされる円形の図を使わずにビューを起点にし、ファットビューコントローラの低減を中心に据えているのが特徴的です。
 
-## リファクタリングするiOSアプリケーション
+## リファクタリングする対象
 今回、リファクタリングするのは、RSSをパースしてUITableViewへ表示する簡単なアプリケーションです。Swift5で約100行で実装されています。下記のGitHubを確認してください。(https://github.com/honda-n/swift-rss-sample)
 
 ## 開発に必要なもの
