@@ -1,7 +1,7 @@
 {
   "bookname": "book",
   "booktitle": "働きアップグレードガイド2020",
-  "aut": ["Mazrica Techbook Project"],
+  "aut": [],
   "language": "ja",
   "toc": true,
   "rights": "(C) 2020　Mazrica Techbook Project",
@@ -10,6 +10,7 @@
   "prt": "日光企画",
   "pbl": "Mazrica Techbook Project",
   "edt": "VTRyo",
+  "date": "2020-02-29",
   "secnolevel": 3,
   "titlepage": true,
   "review_version": 3.1,
