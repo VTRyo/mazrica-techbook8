@@ -28,6 +28,8 @@
     "CHAPS": [
       "chap-ryo.re",
       "chap-kotorieclair.md",
+      "chap-erukiti-remote.md",
+      "chap-inoue.md",
       "chap-forte.md",
       "chap-natsuko.md",
       "chap-cap.md",
@@ -35,10 +37,11 @@
       "chap-woody.md",
       "chap-norihey.md",
       "chap-kitayama.md",
-      "chap-easybooks.md",
       "chap-nao.md",
       "chap-kaeru.md",
-      "chap-140.md"
+      "chap-140.md",
+      "chap-erukiti-react.md",
+      "chap-easybooks.md"
     ],
     "POSTDEF": ["chap-postscript.md",  "chap-contributors.md"]
 	}
